@@ -4,7 +4,7 @@ FUNC=snakefunc
 ${EXEC}.exe: main.o ${FUNC}.o
 	gcc main.o ${FUNC}.o -lSDL3 -o ${EXEC}.exe
 
-${FUNC}.o: ${FUNC}.h
+${FUNC}.o: ${FUNC}.h ${FUNC}.c
 	gcc ${FUNC}.c -c -o ${FUNC}.o
 
 main.o: main.c
