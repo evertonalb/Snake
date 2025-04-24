@@ -1,0 +1,33 @@
+#include "snakefunc.h"
+
+void on_key_press(SDL_KeyboardEvent keyboardEvent){
+	SDL_Event quit;
+	SDL_zero(quit);
+	quit.type = SDL_EVENT_QUIT;
+
+	switch (keyboardEvent.key){
+	case SDLK_ESCAPE:
+		SDL_PushEvent(&quit);
+		break;
+	}
+}
+
+void grid_init(int sz, SDL_FPoint g[sz][sz], int w, int h){
+	for (int i = 0; i < sz; i++){
+        for (int j = 0; j < sz; j++){
+            g[i][j].x = (float) w / sz * j;          
+            g[i][j].y = (float) h / sz * i;
+        }
+    }
+}
+
+void draw_grid(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
+	int w, h;
+	SDL_Window *win = SDL_GetRenderWindow(r);
+	SDL_GetWindowSize(win, &w, &h);
+
+	for (int i = 0; i < sz; i++)
+		SDL_RenderLine(r, 0, g[i][0].y, w, g[i][0].y);
+	for (int i = 0; i < sz; i++)
+		SDL_RenderLine(r, g[0][i].x, 0, g[0][i].x, h);
+}
