@@ -12,7 +12,7 @@ void on_key_press(SDL_KeyboardEvent keyboardEvent){
 	}
 }
 
-void grid_init(int sz, SDL_FPoint g[sz][sz], int w, int h){
+void grid_init(int sz, SDL_FPoint g[sz+1][sz+1], int w, int h){
 	for (int i = 0; i <= sz; i++){
         for (int j = 0; j <= sz; j++){
             g[i][j].x = (float) w / sz * j;          
@@ -21,7 +21,7 @@ void grid_init(int sz, SDL_FPoint g[sz][sz], int w, int h){
     }
 }
 
-void draw_grid(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
+void draw_grid(int sz, SDL_FPoint g[sz+1][sz+1], SDL_Renderer* r){
 	int w, h;
 	SDL_Window *win = SDL_GetRenderWindow(r);
 	SDL_GetWindowSize(win, &w, &h);
@@ -37,7 +37,7 @@ void draw_grid(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
 	SDL_SetRenderDrawColor(r, ogcolor.r, ogcolor.g, ogcolor.b, ogcolor.a);
 }
 
-void color_cell(int i, int j, int sz, SDL_FPoint g[sz][sz], SDL_Renderer *r, SDL_FColor color){
+void color_cell(int i, int j, int sz, SDL_FPoint g[sz+1][sz+1], SDL_Renderer *r, SDL_FColor color){
 	
 	SDL_Vertex vertices[4];
 	// Putting the corners of the cell into the vertices array
@@ -54,8 +54,12 @@ void color_cell(int i, int j, int sz, SDL_FPoint g[sz][sz], SDL_Renderer *r, SDL
 	SDL_RenderGeometry(r, NULL, vertices, 4, indices, 6);
 }
 
-void draw_border(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
+void draw_border(int sz, SDL_FPoint g[sz+1][sz+1], SDL_Renderer *r){
+	SDL_FColor white = {1, 1, 1, 1};
 	for (int i = 0; i < sz; i++){
-		
+		color_cell( 0,  i, sz, g, r, white); // Top
+		color_cell( i,  0, sz, g, r, white); // Left
+		color_cell(sz-1,  i, sz, g, r, white); // Bottom
+		color_cell( i, sz-1, sz, g, r, white); // Right
 	}
 }
