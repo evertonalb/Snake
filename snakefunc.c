@@ -37,6 +37,23 @@ void draw_grid(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
 	SDL_SetRenderDrawColor(r, ogcolor.r, ogcolor.g, ogcolor.b, ogcolor.a);
 }
 
+void color_cell(int i, int j, int sz, SDL_FPoint g[sz][sz], SDL_Renderer *r, SDL_FColor color){
+	
+	SDL_Vertex vertices[4];
+	// Putting the corners of the cell into the vertices array
+	int c = 0;
+	for (int I = i; I < i + 2; I++){
+		for (int J = j; J < j + 2; J++){
+			vertices[c].color = color;
+			vertices[c++].position = g[I][J];
+		}
+	}
+
+	int indices[6] = {0, 1, 2, 1, 2, 3}; // Order for the triangles
+
+	SDL_RenderGeometry(r, NULL, vertices, 4, indices, 6);
+}
+
 void draw_border(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
 	for (int i = 0; i < sz; i++){
 		
