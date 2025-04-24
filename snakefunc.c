@@ -13,8 +13,8 @@ void on_key_press(SDL_KeyboardEvent keyboardEvent){
 }
 
 void grid_init(int sz, SDL_FPoint g[sz][sz], int w, int h){
-	for (int i = 0; i < sz; i++){
-        for (int j = 0; j < sz; j++){
+	for (int i = 0; i <= sz; i++){
+        for (int j = 0; j <= sz; j++){
             g[i][j].x = (float) w / sz * j;          
             g[i][j].y = (float) h / sz * i;
         }
@@ -26,8 +26,19 @@ void draw_grid(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
 	SDL_Window *win = SDL_GetRenderWindow(r);
 	SDL_GetWindowSize(win, &w, &h);
 
-	for (int i = 0; i < sz; i++)
-		SDL_RenderLine(r, 0, g[i][0].y, w, g[i][0].y);
-	for (int i = 0; i < sz; i++)
-		SDL_RenderLine(r, g[0][i].x, 0, g[0][i].x, h);
+	SDL_Color ogcolor;
+	SDL_GetRenderDrawColor(r, &ogcolor.r, &ogcolor.g, &ogcolor.b, &ogcolor.a);
+
+	SDL_SetRenderDrawColor(r, 200, 200, 200, 1);
+	
+	for (int i = 0; i < sz; i++) SDL_RenderLine(r, 0, g[i][0].y, w, g[i][0].y);
+	for (int i = 0; i < sz; i++) SDL_RenderLine(r, g[0][i].x, 0, g[0][i].x, h);
+
+	SDL_SetRenderDrawColor(r, ogcolor.r, ogcolor.g, ogcolor.b, ogcolor.a);
+}
+
+void draw_border(int sz, SDL_FPoint g[sz][sz], SDL_Renderer* r){
+	for (int i = 0; i < sz; i++){
+		
+	}
 }

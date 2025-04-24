@@ -17,7 +17,7 @@ int main(int argc, char *args[]){
 
     // Grid
     const int n = 50;
-    SDL_FPoint grid[n][n];
+    SDL_FPoint grid[n+1][n+1];
     grid_init(n, grid, width, height);
     
     // Renderer
@@ -43,8 +43,6 @@ int main(int argc, char *args[]){
         SDL_RenderClear(renderer);
 
         // Grid
-        SDL_SetRenderDrawColor(renderer, 200, 200, 200, 1);
-
         draw_grid(n, grid, renderer);
         draw_border(n, grid, renderer);
 
